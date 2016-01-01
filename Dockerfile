@@ -15,12 +15,12 @@ RUN apk add --no-cache --virtual=build-dependencies curl ca-certificates && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
     rm -rf /tmp && mkdir /tmp && \
     mkdir -p /usr/lib/jvm/default-jvm && \
-    curl -jkLSH "Cookie: oraclelicense=accept-securebackup-cookie;" http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz \
+    curl -jkLH "Cookie: oraclelicense=accept-securebackup-cookie;" http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz \
         | tar -xz \
-    --exclude=jdk1.8.0_66/*src.zip \
+           --exclude=jdk1.8.0_66/*src.zip \
            --exclude=jdk1.8.0_66/lib/missioncontrol \
            --exclude=jdk1.8.0_66/lib/visualvm \
-           --exclude=jdk1.8.0_66/lib*javafx* \
+           --exclude=jdk1.8.0_66/lib/*javafx* \
            --exclude=jdk1.8.0_66/jre/lib/plugin.jar \
            --exclude=jdk1.8.0_66/jre/lib/ext/jfxrt.jar \
            --exclude=jdk1.8.0_66/jre/bin/javaws \
@@ -51,7 +51,7 @@ RUN apk add --no-cache --virtual=build-dependencies curl ca-certificates && \
            --exclude=jdk1.8.0_66/jre/lib/jfr.jar \
            --exclude=jdk1.8.0_66/jre/lib/jfr \
            --exclude=jdk1.8.0_66/jre/lib/oblique-fonts  \
-            -f - -C /usr/lib/jvm/default-jvm && \
+         -f - -C /usr/lib/jvm/default-jvm && \
        mkdir -p /usr/share/sbt  && mkdir /usr/share/sbt/boot && mkdir /usr/share/sbt/ivy && \
        curl -jL https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.9/sbt-launch.jar | cat  > /usr/share/sbt/sbt-launch.jar &&\
        apk del build-dependencies curl ca-certificates && \
